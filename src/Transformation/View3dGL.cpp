@@ -199,16 +199,7 @@ void View3dGL::setWindowSize(int width, int height)
 void View3dGL::setViewport(int x, int y, int w, int h)
 {
     // set viewport to be the entire window
-    glViewport((GLsizei)x, (GLsizei)y, (GLsizei)w, (GLsizei)h);
-
-    // set perspective viewing frustum
-    Matrix4 matrix = setFrustum(FOV_Y, (float)(w) / h, NEAR_PLANE, FAR_PLANE); // FOV, AspectRatio, NearClip, FarClip
-
-    // copy projection matrix to OpenGL
-    glMatrixMode(GL_PROJECTION);
-    glLoadMatrixf(matrix.get());
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    glViewport((GLsizei)x, (GLsizei)y, (GLsizei)w, (GLsizei)w);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -235,7 +226,7 @@ void View3dGL::setViewportSub(int x, int y, int width, int height, float nearPla
 ///////////////////////////////////////////////////////////////////////////////
 void View3dGL::drawScene()
 {
-    drawSub1();
+    //drawSub1();
     drawSub2();
 
     // post frame
@@ -351,7 +342,8 @@ void View3dGL::drawSub1()
 void View3dGL::drawSub2()
 {
     // set right viewport
-    setViewportSub(povWidth, 0, windowWidth - povWidth, windowHeight, NEAR_PLANE, FAR_PLANE);
+    //setViewportSub(povWidth, 0, windowWidth - povWidth, windowHeight, NEAR_PLANE, FAR_PLANE);
+    setViewportSub(0, 0, windowWidth, windowHeight, NEAR_PLANE, FAR_PLANE);
 
     // it is done in drawSub1(), no need to clear buffer
     //glClearColor(bgColor[0], bgColor[1], bgColor[2], bgColor[3]);   // background color
